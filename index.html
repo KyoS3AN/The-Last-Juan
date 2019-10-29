@@ -4,17 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>The Last Juan</title>
+    <title>Sean and Juan's Interactive Story</title>
 </head>
 <body>
     
+    <div id="intro">
+        <h1>The Last Juan</h1>
+
+        <p1> 
+
+        </p1>
+
+    </div>
+
+    <div id="story">
+
+    </div>
+
+    <div id="button">
+
+    </div>
+
 </body>
 </html>
+
+
 <script>
 
+
+const myStory = {
+    intro : {
+        text : "It All Began With",
+        choices : ["one" , "two" , "three"]
+    }
+}
+
+let buttonContainer = document.getElementById('button')
+let storyContainer = document.getElementById('story');
+
+function createButton(choices, label){
+    let button = document.createElement('button');
+
+    button.innerHTML = 'Button Text';
+
+    button.addEventListener('click', function(){alert('Button clicked')});
+
+    document.getElementById('button').appendChild(button)
+
+    buttonContainer.appendChild(button);
+}
+
+function showStory(text){
+    let storyText = document.createElement('button');
+    button.innerText = text;
+}
+
 function interactiveStory(){
-    let progress = [];
-    [] = nothing
+    let progress = []
+
+}
+
+for(let i = 0; i < 3; i++){
+    createButton();
 }
 
 </script>
