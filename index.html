@@ -8,12 +8,11 @@
 </head>
 <body>
     
-    <div id="intro">
+    <div id="intro" style="color:maroon; font-size: x-large;">
         <h1>The Last Juan</h1>
 
-        <p1> 
-
-        </p1>
+        <p id="p1" style="color:crimson; font-size: large;"></p>
+        <p id="p2" style="color:crimson; font-size: large;"></p>
 
     </div>
 
@@ -32,6 +31,10 @@
 <script>
 
 
+document.getElementById("p1").innerText = "Do you want to play?";
+createButton('Start Story', 1);
+createButton('No', 2)
+
 const myStory = {
     intro : {
         text : "It All Began With",
@@ -42,12 +45,14 @@ const myStory = {
 let buttonContainer = document.getElementById('button')
 let storyContainer = document.getElementById('story');
 
-function createButton(choices, label){
+function createButton(buttonText, choice){
     let button = document.createElement('button');
 
-    button.innerHTML = 'Button Text';
+    button.innerHTML = buttonText;
 
-    button.addEventListener('click', function(){alert('Button clicked')});
+    button.addEventListener('click', function(){
+        interactiveStory()
+    });
 
     document.getElementById('button').appendChild(button)
 
@@ -61,11 +66,14 @@ function showStory(text){
 
 function interactiveStory(){
     let progress = []
-
+    console.log("Intializing Game...");
+    document.getElementById("p2").innerText = "It all starts on one bright september night" +
+    " Tim and his friends are outside the castle.  Inside the castle there is a ball going on" +
+    " everyone got dragged there by their parents but they don't know if they should stay." +
+    " Do you want to enter the castle or do something else?";
+    createButton('Enter', 1);
+    createButton('Leave', 2);
 }
 
-for(let i = 0; i < 3; i++){
-    createButton();
-}
 
 </script>
