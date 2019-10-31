@@ -12,7 +12,7 @@
         <h1>The Last Juan</h1>
 
         <p id="p1" style="color:crimson; font-size: large;"></p>
-        <p id="p2" style="color:crimson; font-size: large;"></p>
+        <p id="text" style="color:crimson; font-size: large;"></p>
 
     </div>
 
@@ -28,17 +28,51 @@
 </html>
 
 
-<script>
+<script>;
 
+let storyHistory = ["intro"];
 
-document.getElementById("p1").innerText = "Do you want to play?";
-createButton('Start Story', 1);
-createButton('No', 2)
-
-const myStory = {
+const story = {
     intro : {
-        text : "It All Began With",
-        choices : ["one" , "two" , "three"]
+        text : "Do You Want To Play?",
+        choice : [
+            ['Start Story', "one"],
+            ['Don\'t Start Story', "two"]
+        ]
+    },
+    one : {
+        text : "It all starts on one bright september night Tim and his friends are outside the castle. Inside the castle there is a ball going on everyone got dragged there by their parents but they don't know if they should stay. Do you want to enter the castle or do something else?",
+        choice : [
+            ['Enter', "three"],
+            ['Leave', "four"]
+        ]
+    },
+    two : {
+        text : "user warning: Duplicate entry '1' for key 1 query: UPDATE users SET signature = '', signature_format = '1', theme = '', name = 'webmaster', mail = 'webmaster@example.com', status = '1', timezone = '-25200', uid = '1', created = '1286373142', language = '', data = 'a:27:{s:13:\"form_build_id\";s:37:\"form-f1e4334c513d85cc7c8b107a7b46d741\";s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:5:\"block\";a:1:{s:5:\"block\";a:1:{i:3;i:1;}}s:4:\"type\";s:7:\"profile\";s:7:\"changed\";s:0:\"\";s:5:\"title\";s:3:\"Bio\";s:9:\"teaser_js\";s:0:\"\";s:14:\"teaser_include\";i:1;s:4:\"body\";s:0:\"\";s:6:\"format\";s:1:\"2\";s:8:\"revision\";i:0;s:3:\"log\";s:0:\"\";s:4:\"date\";s:0:\"\";s:7:\"promote\";i:0;s:6:\"sticky\";i:0;s:8:\"moderate\";i:0;s:7:\"preview\";s:7:\"Preview\";s:7:\"comment\";s:1:\"0\";s:4:\"menu\";a:13:{s:4:\"mlid\";i:0;s:6:\"module\";s:4:\"menu\";s:6:\"hidden\";i:0;s:12:\"has_children\";i:0;s:10:\"customized\";i:0;s:7:\"options\";a:0:{}s:8:\"expanded\";i:0;s:18:\"parent_depth_limit\";i:8;s:10:\"link_title\";s:0:\"\";s:6:\"parent\";s:15:\"primary-links:0\";s:6:\"weight\";s:1:\"0\";s:4:\"plid\";s:1:\"0\";s:9:\"menu_name\";s:13:\"primary-links\";}s:4:\"path\";s:0:\"\";s:22:\"pathauto_perform_alias\";i:1;s:6:\"upload\";s:0:\"\";s:6:\"attach\";s:6:\"Attach\";s:16:\"field_first_name\";a:1:{i:0;a:2:{s:5:\"value\";s:4:\"FIRST\";s:14:\"_error_element\";s:26:\"field_first_name][0][value\";}}s:15:\"field_last_name\";a:1:{i:0;a:2:{s:5:\"value\";s:9:\"LAST\";s:14:\"_error_element\";s:25:\"field_last_name][0][value\";}}}' WHERE uid = 6 in /home/username/public_html/example.com/modules/user/user.module on line 247.",
+        choice : [
+            ['Start Story', "one"]
+        ]
+    },
+    three : {
+        text : "You start to make your way into the castle to go to the ball when Isabelle stops you and says wait up Tim why would you want to go to such a lame ball you should come with us to the market.",
+        choice : [
+            ['Go To The Market', 'five'],
+            ['Still Go In The Ball', 'six']
+        ]
+    },
+    four : {
+        text : "You decide to go to the market instead of going to the ball and while you are making your way there you see Isabelle who tells you that you should tag along with her",
+        choice : [
+            ['Tag Along With Her', 'five'],
+            ['Go Alone', 'seven']
+        ]
+    },
+    five : {
+        text : "As you go down to the market with Isabelle you realize that it seems rather empty tonight, but you don't think much of it.  You make your way up to one of the stands which is selling tacos the man's name is Juan.  You buy two tacos one for you, and one for Isabelle.  Isabelle striks up conversation and says \"We should go on an adventure\" but before you can respond Juan jumps in and asks if you want to go with him to make sure you\'re safe.",
+        choice : [
+            ['Go With Juan On An Adventure', 'eight'],
+            ['Go Without Juan', 'nine']
+        ]
     }
 }
 
@@ -51,7 +85,8 @@ function createButton(buttonText, choice){
     button.innerHTML = buttonText;
 
     button.addEventListener('click', function(){
-        interactiveStory()
+        storyHistory.push(choice);
+        showStory();
     });
 
     document.getElementById('button').appendChild(button)
@@ -59,21 +94,32 @@ function createButton(buttonText, choice){
     buttonContainer.appendChild(button);
 }
 
-function showStory(text){
-    let storyText = document.createElement('button');
-    button.innerText = text;
+function showStory(){
+
+    let currentChoice = storyHistory[storyHistory.length - 1];
+
+    storyContainer.innerHTML = "";
+
+    buttonContainer.innerHTML = "";
+
+    for(let page of storyHistory){
+        interactiveStory(story[page].text);
+    }
+    
+    for(let choice of story[currentChoice].choice){
+        createButton(choice[0], choice[1]);
+    }
 }
 
-function interactiveStory(){
-    let progress = []
-    console.log("Intializing Game...");
-    document.getElementById("p2").innerText = "It all starts on one bright september night" +
-    " Tim and his friends are outside the castle.  Inside the castle there is a ball going on" +
-    " everyone got dragged there by their parents but they don't know if they should stay." +
-    " Do you want to enter the castle or do something else?";
-    createButton('Enter', 1);
-    createButton('Leave', 2);
+function interactiveStory(text){
+    let storyChoice = document.createElement("p");
+
+    storyChoice.innerText = text;
+
+    storyContainer.appendChild(storyChoice);
+
 }
 
+showStory();
 
 </script>
