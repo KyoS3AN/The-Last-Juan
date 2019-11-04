@@ -10,28 +10,28 @@
     
     <div id="intro" style="color:maroon; font-size: x-large;">
         <h1>The Last Juan</h1>
-
+ 
         <p id="p1" style="color:crimson; font-size: large;"></p>
         <p id="text" style="color:crimson; font-size: large;"></p>
-
+ 
     </div>
-
+ 
     <div id="story">
-
+ 
     </div>
-
+ 
     <div id="button">
-
+ 
     </div>
-
+ 
 </body>
 </html>
-
-
+ 
+ 
 <script>;
-
+ 
 let storyHistory = ["intro"];
-
+ 
 const story = {
     intro : {
         text : "Do You Want To Play?",
@@ -124,33 +124,33 @@ const story = {
         ]
     }
 }
-
+ 
 let buttonContainer = document.getElementById('button')
 let storyContainer = document.getElementById('story');
-
+ 
 function createButton(buttonText, choice){
     let button = document.createElement('button');
-
+ 
     button.innerHTML = buttonText;
-
+ 
     button.addEventListener('click', function(){
         storyHistory.push(choice);
         showStory();
     });
-
+ 
     document.getElementById('button').appendChild(button)
-
+ 
     buttonContainer.appendChild(button);
 }
-
+ 
 function showStory(){
-
+ 
     let currentChoice = storyHistory[storyHistory.length - 1];
-
+ 
     storyContainer.innerHTML = "";
-
+ 
     buttonContainer.innerHTML = "";
-
+ 
     for(let page of storyHistory){
         interactiveStory(story[page].text);
     }
@@ -159,16 +159,16 @@ function showStory(){
         createButton(choice[0], choice[1]);
     }
 }
-
+ 
 function interactiveStory(text){
     let storyChoice = document.createElement("p");
-
+ 
     storyChoice.innerText = text;
-
+ 
     storyContainer.appendChild(storyChoice);
-
+ 
 }
-
+ 
 showStory();
-
+ 
 </script>
